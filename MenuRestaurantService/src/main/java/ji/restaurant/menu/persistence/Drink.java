@@ -1,16 +1,23 @@
 package ji.restaurant.menu.persistence;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
+
+
 
 /**
  * <b>REVISION 1.0</b>
@@ -34,80 +41,144 @@ public class Drink implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idBebida;
+	@Column(name="idBebida")
+	private int idDrink;
 	
 	/**
 	 * Etiqueta que define a la bebida
 	 */
 	@Column(name="bebida",nullable = false )
-	@NotEmpty(message="El  nombre de la bebida es requerido")
-	private String bebida;
+	private String drink;
 	
 	/**
 	 * Codigo unica que cada bebida tiene
 	 */
 	@Column(name="codigoBebida",nullable = false )
-	private int codigoBebida;
+	private int drinkCode;
 	/**
 	 * Enlace con el tipo de bebida que define en que categoria pertenece
 	 */
-	@JoinColumn(name="tipoDeBebida",referencedColumnName="idTipo",nullable=false)
-	private DrinkType tipoDeBebida;
+	@ManyToOne(targetEntity=DrinkType.class,fetch = FetchType.EAGER)
+	@JoinColumn(name="tipoDeBebida",referencedColumnName="idTipoBebida",nullable=false)
+	private DrinkType drinkType;
+	
+	/**
+	 * Define el precio de la bebida
+	 */
+	@Column(name="precioBebida",nullable = false )
+	private BigDecimal drinkPrice;
+	/**
+	 * Relacion a la tabla intermedia entre <code>Drink</code>
+	 * y <code>OrderDetail</code> siendo la primera subordinada a  <code>OrderDetail</code> 
+	 */
+	@ManyToMany(mappedBy="drinks",fetch = FetchType.EAGER,cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH},targetEntity=OrderDetail.class)
+	private Set<OrderDetail>orderDetails;  
+
+	/**
+	 * Alamcena el url de la imagen 
+	 */
+	@Column(name="imagenUrl" )
+	private String imageUrl;
+	
 	/**
 	 *Devuleve 
-	 * @return the idBebida
+	 * @return the idDrink
 	 */
-	public int getIdBebida() {
-		return idBebida;
+	public int getIdDrink() {
+		return idDrink;
 	}
 	/**
-	 * Establece idBebida con  idBebida
-	   @param idBebida 
+	 * Establece idDrink con  idBebida
+	   @param idDrinkP 
 	 */
-	public void setIdBebida(int idBebida) {
-		this.idBebida = idBebida;
-	}
-	/**
-	 *Devuleve 
-	 * @return the bebida
-	 */
-	public String getBebida() {
-		return bebida;
-	}
-	/**
-	 * Establece bebida con  bebida
-	   @param bebida 
-	 */
-	public void setBebida(String bebida) {
-		this.bebida = bebida;
-	}
-	/**
-	 *Devuleve 
-	 * @return the codigoBebida
-	 */
-	public int getCodigoBebida() {
-		return codigoBebida;
-	}
-	/**
-	 * Establece codigoBebida con  codigoBebida
-	   @param codigoBebida 
-	 */
-	public void setCodigoBebida(int codigoBebida) {
-		this.codigoBebida = codigoBebida;
+	public void setIdDrink(int idDrinkP) {
+		this.idDrink = idDrinkP;
 	}
 	/**
 	 *Devuleve 
-	 * @return the tipoDeBebida
+	 * @return the drink
 	 */
-	public DrinkType getTipoDeBebida() {
-		return tipoDeBebida;
+	public String getDrink() {
+		return drink;
 	}
 	/**
-	 * Establece tipoDeBebida con  tipoDeBebida
-	   @param tipoDeBebida 
+	 * Establece drink con  drinkP
+	   @param drinkP 
 	 */
-	public void setTipoDeBebida(DrinkType tipoDeBebida) {
-		this.tipoDeBebida = tipoDeBebida;
+	public void setDrink(String drinkP) {
+		this.drink = drinkP;
+	}
+	/**
+	 *Devuleve 
+	 * @return the drinkCode
+	 */
+	public int getDrinkCode() {
+		return drinkCode;
+	}
+	/**
+	 * Establece drinkCode con  drinkCodeP
+	   @param drinkCodeP 
+	 */
+	public void setDrinkCode(int drinkCodeP) {
+		this.drinkCode = drinkCodeP;
+	}
+	/**
+	 *Devuleve 
+	 * @return the drinkType
+	 */
+	public DrinkType getDrinkType() {
+		return drinkType;
+	}
+	/**
+	 * Establece drinkType con  drinkTypeP
+	   @param drinkTypeP 
+	 */
+	public void setDrinkType(DrinkType drinkTypeP) {
+		this.drinkType = drinkTypeP;
+	}
+	/**
+	 * Devuelve el valor de: orderDetails
+	 * @return  orderDetails
+	 */
+	public Set<OrderDetail> getOrderDetails() {
+		return this.orderDetails;
+	}
+	/**
+	 *Establece el valor de orderDetails 
+	 * con @param orderDetailsP 
+	 */
+	public void setOrderDetails(Set<OrderDetail> orderDetailsP) {
+		this.orderDetails = orderDetailsP;
+	}
+	
+	/**
+	 * Devuelve el valor de: imageUrl
+	 * @return  imageUrl
+	 */
+	public String getImageUrl() {
+		return this.imageUrl;
+	}
+
+	/**
+	 *Establece el valor de imageUrl 
+	 * con @param imageUrlP 
+	 */
+	public void setImageUrl(String imageUrlP) {
+		this.imageUrl = imageUrlP;
+	}
+	/**
+	 * Devuelve el valor de: drinkPrice
+	 * @return  drinkPrice
+	 */
+	public BigDecimal getDrinkPrice() {
+		return this.drinkPrice;
+	}
+	/**
+	 *Establece el valor de drinkPrice 
+	 * con @param drinkPriceP 
+	 */
+	public void setDrinkPrice(BigDecimal drinkPriceP) {
+		this.drinkPrice = drinkPriceP;
 	}
 	
 }

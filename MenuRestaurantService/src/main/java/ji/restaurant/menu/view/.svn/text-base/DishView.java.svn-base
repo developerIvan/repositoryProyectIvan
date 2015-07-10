@@ -1,0 +1,127 @@
+/**
+ * 
+ */
+package ji.restaurant.menu.view;
+
+import java.io.Serializable;
+
+/**
+ * <b>REVISION 1.0</b>
+ * <br>
+ * <b>Fecha:</b>10/06/2015</b>
+ * <b>Representacion de la vista de la entidad <code>Dish</code></b>
+ * @author Ivan
+ * @version 1.0
+ */
+public class DishView implements Serializable {
+
+	/**
+	 * Serial generado por el IDE
+	 */
+	private static final long serialVersionUID = 2633220423887355149L;
+
+	/**
+	 * Identificador de la entidad
+	 */
+	private int idDish;
+    
+	/**
+	 * Etiqueta del platillo
+	 */
+	private String dishName;
+	
+	/**
+	 * identificador o numero del platillo en el menu
+	 */
+	private int dishNumber;
+	
+	/**
+	 * Precio  del platillo
+	 */
+	private double price;
+
+	/**
+	 * Enlace con el tipo de platillo que define en que categoria pertenece
+	 */
+	private DishTypeView dishType;
+
+	/**
+	 * Devuelve el valor de: idDish
+	 * @return  idDish
+	 */
+	public int getIdDish() {
+		return this.idDish;
+	}
+
+	/**
+	 *Establece el valor de idDish 
+	 * con @param idDish 
+	 */
+	public void setIdDish(int idDishP) {
+		this.idDish = idDishP;
+	}
+
+	/**
+	 * Devuelve el valor de: dishName
+	 * @return  dishName
+	 */
+	public String getDishName() {
+		return this.dishName;
+	}
+
+	/**
+	 *Establece el valor de dishName 
+	 * con @param dishNameP 
+	 */
+	public void setDishName(String dishNameP) {
+		this.dishName = dishNameP;
+	}
+
+	/**
+	 * Devuelve el valor de: dishNumber
+	 * @return  dishNumber
+	 */
+	public int getDishNumber() {
+		return this.dishNumber;
+	}
+
+	/**
+	 *Establece el valor de dishNumber 
+	 * con @param dishNumberP 
+	 */
+	public void setDishNumber(int dishNumberP) {
+		this.dishNumber = dishNumberP;
+	}
+
+	/**
+	 * Devuelve el valor de: price
+	 * @return  price
+	 */
+	public double getPrice() {
+		return this.price;
+	}
+
+	/**
+	 *Establece el valor de price 
+	 * con @param priceP 
+	 */
+	public void setPrice(double priceP) {
+		this.price = priceP;
+	}
+
+	/**
+	 * Devuelve el valor de: dishType
+	 * @return  dishType
+	 */
+	public DishTypeView getDishType() {
+		return this.dishType;
+	}
+
+	/**
+	 *Establece el valor de dishType 
+	 * con @param dishTypeP 
+	 */
+	public void setDishType(DishTypeView dishTypeP) {
+		this.dishType = dishTypeP;
+	}
+}

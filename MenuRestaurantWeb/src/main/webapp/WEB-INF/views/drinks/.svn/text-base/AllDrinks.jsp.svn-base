@@ -1,0 +1,37 @@
+ <%@ include file="/WEB-INF/views/libraries.jsp"  %>
+
+
+
+  <c:if test="${null!= drinksType}">
+      
+      <c:forEach items="${drinksType}" var="drinkType" >
+         <section>
+        
+            <h2><c:out value="${drinkType.beverageType}"></c:out> </h2>  
+              <c:if test="${null!=drinksMap}">
+               <section>
+	             <c:if test="${null!=drinksMap[drinkType.idDrinkType]}">
+	                 <c:forEach items="${drinksMap[drinkType.idDrinkType]}" var="drink" >
+	                
+		              <article>
+		                  <header>
+		                     
+		                     <p>${drink.drink}</p>
+		                  </header>
+		              </article>
+		             </c:forEach>   
+	              </c:if>
+	              </section>
+               </c:if>    
+         </section>
+        
+         
+      </c:forEach>
+        
+  </c:if> 
+
+
+
+
+
+

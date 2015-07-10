@@ -1,0 +1,7 @@
+INSERT INTO tipobebida(idTipoBebida,tipoDeBebida,codigoTipoBebida) values(1,'Bebidas Calientes','10');
+INSERT INTO tipobebida(idTipoBebida,tipoDeBebida,codigoTipoBebida) values(2,'Bebidas Frías','20');
+
+
+INSERT INTO bebida(idBebida,bebida,codigoBebida,tipoDeBebida) values(1,'Cappuchinno',1,1);
+
+

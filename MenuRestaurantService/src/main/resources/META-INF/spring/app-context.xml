@@ -9,17 +9,19 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-	<jdbc:embedded-database id="dataSource" type="H2"/>
+	<jdbc:embedded-database id="dataSource" type="H2">
+       <jdbc:script location="classpath:sql/restaurantH2Script.sql"/>
+    </jdbc:embedded-database>
 	
 	
 	<!--Crea los objetos y los administra para su dependencia -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="ji.menurestaurantapp.persistence" />
+		<property name="packagesToScan" value="ji.restaurant.menu.persistence" />
 		<property name="hibernateProperties">
 			<props>
-			  <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			  <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
                
@@ -43,5 +45,22 @@
 
 	
 	<context:component-scan base-package="ji.restaurant.menu" />
+ 
+	<!--  beans for preloading data  -->
+		<bean class="org.springframework.jdbc.datasource.init.DataSourceInitializer"
+		depends-on="sessionFactory">
+		<property name="databasePopulator" ref="resourceDatabasePopulator" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
+	<bean id="resourceDatabasePopulator"
+		class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+		<property name="scripts">
+			<array>
+				<value>classpath:sql/db-test-data.sql</value>
+			</array>
+		</property>
+	</bean>
+	
+	
 </beans>
